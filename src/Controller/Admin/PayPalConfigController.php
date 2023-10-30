@@ -35,7 +35,7 @@ class PayPalConfigController extends AdminController
     /**
      * @var string Current class template name.
      */
-    protected $_sThisTemplate = 'oscpaypalconfig.tpl'; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_sThisTemplate = '@osc_paypal/admin/oscpaypalconfig'; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @return string
@@ -284,12 +284,16 @@ class PayPalConfigController extends AdminController
      */
     public function showTransferLegacySettingsButton(): bool
     {
-        $LegacyOeppModuleDetails = Registry::get(LegacyOeppModuleDetails::class);
+        try {
+            $LegacyOeppModuleDetails = Registry::get(LegacyOeppModuleDetails::class);
 
-        if ($LegacyOeppModuleDetails->isLegacyModulePresent()) {
-            $showButton = !$this->getServiceFromContainer(ModuleSettings::class)->getLegacySettingsTransferStatus();
+            if ($LegacyOeppModuleDetails->isLegacyModulePresent()) {
+                $showButton = !$this->getServiceFromContainer(ModuleSettings::class)->getLegacySettingsTransferStatus();
 
-            return $showButton;
+                return $showButton;
+            }
+        } catch (\Throwable $exc) {
+            // If not existing, an exception will be thrown -> do nothing and return false
         }
 
         return false;
