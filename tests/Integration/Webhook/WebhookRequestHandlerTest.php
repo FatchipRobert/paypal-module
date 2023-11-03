@@ -70,7 +70,8 @@ final class WebhookRequestHandlerTest extends UnitTestCase
 
         $webhookRequestHandler = new WebhookRequestHandler($requestReader, $verificationService, $dispatcher);
 
-        $this->assertFalse($webhookRequestHandler->process());
+        $this->expectException(\JsonException::class);
+        $webhookRequestHandler->process();
     }
 
     public function testUnverifiableCall(): void

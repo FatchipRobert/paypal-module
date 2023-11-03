@@ -37,9 +37,9 @@ use OxidSolutionCatalysts\PayPal\Service\SCAValidator;
 
 final class PaymentTest extends BaseTestCase
 {
-    protected const TEST_USER_ID = 'e7af1c3b786fd02906ccd75698f4e6b9';
+    protected const TEST_USER_ID = '06823b68-e4c3-4da8-b011-147195d9';
 
-    protected const TEST_PRODUCT_ID = 'dc5ffdf380e15674b56dd562a7cb6aec';
+    protected const TEST_PRODUCT_ID = '5e6a374e212258abbfd76b6adf911772';
 
     private $success3DCard = 'O:50:"OxidSolutionCatalysts\PayPalApi\Model\Orders\Order":13:{s:2:"id";s:7:"some_id";s:' .
     '14:"payment_source";O:66:"OxidSolutionCatalysts\PayPalApi\Model\Orders\PaymentSourceResponse":24:{s:4:"card";' .
@@ -326,6 +326,7 @@ final class PaymentTest extends BaseTestCase
                         ->getMock(),
                     new SCAValidator(),
                     $moduleSettingsService,
+                    $this->getPsrLoggerMock(),
                     $serviceFactoryMock,
                     $this->getMockBuilder(PatchRequestFactory::class)
                         ->disableOriginalConstructor()

@@ -283,7 +283,7 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment'
                 ]
@@ -309,7 +309,7 @@ final class OrderTest extends BaseTestCase
             ->method('isPayPalOrderCompleted')
             ->willReturn(true);
         $orderMock->expects($this->once())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
 
         $orderMock->load(self::TEST_ORDER_ID);
         $orderMock->assign(
@@ -337,7 +337,7 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment'
                 ]
@@ -361,7 +361,7 @@ final class OrderTest extends BaseTestCase
             ->method('isPayPalOrderCompleted')
             ->willReturn(false);
         $orderMock->expects($this->never())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
 
         $orderMock->load(self::TEST_ORDER_ID);
         $orderMock->assign(
@@ -395,7 +395,7 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment'
                 ]
@@ -425,7 +425,7 @@ final class OrderTest extends BaseTestCase
         $orderMock->expects($this->never())
             ->method('isPayPalOrderCompleted');
         $orderMock->expects($this->once())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
 
         $orderMock->load(self::TEST_ORDER_ID);
         $orderMock->assign(
@@ -450,7 +450,7 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment'
                 ]
@@ -473,7 +473,7 @@ final class OrderTest extends BaseTestCase
         $orderMock->expects($this->never())
             ->method('isPayPalOrderCompleted');
         $orderMock->expects($this->never())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
 
         $orderMock->load(self::TEST_ORDER_ID);
         $orderMock->assign(
@@ -507,7 +507,7 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment'
                 ]
@@ -539,7 +539,7 @@ final class OrderTest extends BaseTestCase
             ->method('isPayPalOrderCompleted')
             ->willReturn(false);
         $orderMock->expects($this->once())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
 
         $orderMock->load(self::TEST_ORDER_ID);
         $orderMock->assign(
@@ -564,10 +564,10 @@ final class OrderTest extends BaseTestCase
                     'markOrderPaid',
                     'setTransId',
                     'extractTransactionId',
-                    '_sendOrderByEmail',
+                    'sendOrderByEmail',
                     'getOrderPaymentCapture',
                     'doExecutePayPalPayment',
-                    '_setOrderStatus'
+                    'setOrderStatus'
                 ]
             )
             ->getMock();
@@ -607,9 +607,9 @@ final class OrderTest extends BaseTestCase
         $orderMock->expects($this->never())
             ->method('isPayPalOrderCompleted');
         $orderMock->expects($this->once())
-            ->method('_sendOrderByEmail');
+            ->method('sendOrderByEmail');
         $orderMock->expects($this->once())
-            ->method('_setOrderStatus')
+            ->method('setOrderStatus')
             ->with($this->equalTo('NOT_FINISHED'));
 
         $orderMock->load(self::TEST_ORDER_ID);

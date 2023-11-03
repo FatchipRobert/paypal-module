@@ -21,9 +21,9 @@ use OxidSolutionCatalysts\PayPal\Core\PayPalDefinitions;
 
 final class OrderTest extends BaseTestCase
 {
-    protected const TEST_USER_ID = 'e7af1c3b786fd02906ccd75698f4e6b9';
+    protected const TEST_USER_ID = '06823b68-e4c3-4da8-b011-147195d9';
 
-    protected const TEST_PRODUCT_ID = 'dc5ffdf380e15674b56dd562a7cb6aec';
+    protected const TEST_PRODUCT_ID = '5e6a374e212258abbfd76b6adf911772';
 
     public function testCreatePuiPayPalOrderRequestWithPuiRequiredFields(): void
     {
