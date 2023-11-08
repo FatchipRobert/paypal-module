@@ -54,9 +54,6 @@ final class PaymentCaptureCompletedHandlerTest extends WebhookHandlerBaseTestCas
         $resourceId = $data['resource']['id'];
         $event = new WebhookEvent($data, static::WEBHOOK_EVENT);
 
-        /*
-         * Removed as logger is now a Service and I have no clue how to inject the mock there
-         * Feel free to add if you know how
         $loggerMock = $this->getPsrLoggerMock();
         $loggerMock->expects($this->once())
             ->method('debug')
@@ -66,9 +63,9 @@ final class PaymentCaptureCompletedHandlerTest extends WebhookHandlerBaseTestCas
             );
 
         EshopRegistry::set('logger', $loggerMock);
-        */
 
         $handler = oxNew(PaymentCaptureCompletedHandler::class);
+        $handler->addServiceMock('OxidSolutionCatalysts\PayPal\Logger', $loggerMock);
         $handler->handle($event);
     }
 

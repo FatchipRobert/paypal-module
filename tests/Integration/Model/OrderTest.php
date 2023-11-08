@@ -257,8 +257,10 @@ final class OrderTest extends BaseTestCase
 
     public function testFinalizeOrderAfterExternalPaymentOrderLoadError(): void
     {
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
-            ->onlyMethods(['isLoaded'])
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
+            ->onlyMethods([
+                'isLoaded'
+            ])
             ->getMock();
 
         $orderMock->expects($this->once())
@@ -277,11 +279,9 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest();
 
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
-                'sendOrderByEmail'
-            ])
-            ->addMethods([
+                'sendOrderByEmail',
                 'getServiceFromContainer',
                 'afterOrderCleanUp',
                 'isPayPalOrderCompleted',
@@ -290,7 +290,6 @@ final class OrderTest extends BaseTestCase
                 'extractTransactionId',
                 'getOrderPaymentCapture',
                 'doExecutePayPalPayment',
-                'hasOrderNumber'
             ])
             ->getMock();
 
@@ -332,11 +331,9 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest('once', 'never');
 
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
-                'sendOrderByEmail'
-            ])
-            ->addMethods([
+                'sendOrderByEmail',
                 'getServiceFromContainer',
                 'afterOrderCleanUp',
                 'isPayPalOrderCompleted',
@@ -391,7 +388,7 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest('never', 'never');
 
-        $orderMock = $this->getMockBuilder(\OxidSolutionCatalysts\PayPal\Model\Order::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
                 'sendOrderByEmail',
                 'getServiceFromContainer',
@@ -402,10 +399,6 @@ final class OrderTest extends BaseTestCase
                 'extractTransactionId',
                 'getOrderPaymentCapture',
                 'doExecutePayPalPayment',
-            ])
-            ->addMethods([
-
-
             ])
             ->getMock();
 
@@ -448,11 +441,9 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest('never', 'never');
 
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
-                'sendOrderByEmail'
-            ])
-            ->addMethods([
+                'sendOrderByEmail',
                 'getServiceFromContainer',
                 'afterOrderCleanUp',
                 'isPayPalOrderCompleted',
@@ -505,11 +496,9 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest('never', 'never');
 
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
-                'sendOrderByEmail'
-            ])
-            ->addMethods([
+                'sendOrderByEmail',
                 'getServiceFromContainer',
                 'afterOrderCleanUp',
                 'isPayPalOrderCompleted',
@@ -562,12 +551,10 @@ final class OrderTest extends BaseTestCase
     {
         $paymentServiceMock = $this->prepareFinalizeTest('never', 'once');
 
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->onlyMethods([
                 'sendOrderByEmail',
-                'setOrderStatus'
-            ])
-            ->addMethods([
+                'setOrderStatus',
                 'getServiceFromContainer',
                 'afterOrderCleanUp',
                 'isPayPalOrderCompleted',
@@ -575,7 +562,7 @@ final class OrderTest extends BaseTestCase
                 'setTransId',
                 'extractTransactionId',
                 'getOrderPaymentCapture',
-                'doExecutePayPalPayment',
+                'doExecutePayPalPayment'
             ])
             ->getMock();
 
@@ -634,13 +621,11 @@ final class OrderTest extends BaseTestCase
         bool $isOrderPaid,
         bool $isWaitForWebhookTimeoutReached,
         bool $hasOrderNumber = false
-    ): EshopModelOrder {
-        $orderMock = $this->getMockBuilder(EshopModelOrder::class)
+    ): PayPalExtendModelOrder {
+        $orderMock = $this->getMockBuilder(PayPalExtendModelOrder::class)
             ->disableOriginalConstructor()
             ->onlyMethods([
-                'load'
-            ])
-            ->addMethods([
+                'load',
                 'isOrderFinished',
                 'isOrderPaid',
                 'isWaitForWebhookTimeoutReached',

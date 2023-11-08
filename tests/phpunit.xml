@@ -21,9 +21,12 @@
             <directory>Integration/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+    <coverage includeUncoveredFiles="true">
+        <include>
             <directory suffix=".php">../src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
+    <php>
+        <const name="OXID_PHP_UNIT" value="true"/>
+    </php>
 </phpunit>

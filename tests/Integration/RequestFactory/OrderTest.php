@@ -18,6 +18,9 @@ use OxidSolutionCatalysts\PayPal\Tests\Integration\BaseTestCase;
 use OxidSolutionCatalysts\PayPalApi\Model\Orders\OrderRequest;
 use OxidEsales\Eshop\Application\Model\Basket as EshopModelBasket;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Application\Model\Payment as EshopModelPayment;
+use OxidEsales\Eshop\Core\Price;
+use OxidEsales\Eshop\Core\UtilsObject;
 use OxidSolutionCatalysts\PayPal\Core\PayPalDefinitions;
 
 final class OrderTest extends BaseTestCase
@@ -72,6 +75,17 @@ final class OrderTest extends BaseTestCase
 
     public function testCreatePuiPayPalOrderRequestWithoutPuiRequiredFields(): void
     {
+        $payment = $this->getMockBuilder(EshopModelPayment::class)
+            ->onlyMethods([
+                'getPaymentValue',
+                'load',
+            ])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $payment->method('getPaymentValue')->willReturn(5);
+
+        EshopRegistry::getUtilsObject()::setClassInstance(EshopModelPayment::class, $payment);
+
         //DE demo user
         $user = oxNew(EshopModelUser::class);
         $user->load(self::TEST_USER_ID);
@@ -83,6 +97,8 @@ final class OrderTest extends BaseTestCase
         $basket->setPayment(PayPalDefinitions::STANDARD_PAYPAL_PAYMENT_ID);
         $basket->setShipping('oxidstandard');
         $basket->calculateBasket(true);
+
+        EshopRegistry::getUtilsObject()::resetClassInstances();
 
         /** @var OrderRequestFactory $requestFactory */
         $requestFactory = EshopRegistry::get(OrderRequestFactory::class);
