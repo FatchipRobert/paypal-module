@@ -12,14 +12,14 @@ namespace OxidSolutionCatalysts\PayPal\Tests\Integration\Webhook;
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Application\Model\Order as EshopModelOrder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidSolutionCatalysts\PayPal\Tests\Integration\BaseTestCase;
 use OxidEsales\EshopCommunity\Tests\ContainerTrait;
 use OxidSolutionCatalysts\PayPal\Core\Constants;
 use OxidSolutionCatalysts\PayPal\Model\PayPalOrder as PayPalOrderModel;
 use OxidSolutionCatalysts\PayPalApi\Model\Orders\Order as ApiOrderResponse;
 use Psr\Log\LoggerInterface;
 
-class WebhookHandlerBaseTestCase extends UnitTestCase
+class WebhookHandlerBaseTestCase extends BaseTestCase
 {
     use ContainerTrait;
 

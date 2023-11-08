@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidSolutionCatalysts\PayPal\Tests\Integration\Service;
 
-use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
+use OxidEsales\Eshop\Core\Request;
 use OxidEsales\Eshop\Core\Session as EshopSession;
 use OxidSolutionCatalysts\PayPal\Core\ConfirmOrderRequestFactory;
 use OxidSolutionCatalysts\PayPal\Core\Constants;
@@ -106,8 +106,7 @@ final class PaymentTest extends BaseTestCase
     {
         $this->markTestSkipped('For manual use only, for automatic tests we have codeception tests');
 
-        //UnitTestCase::setRequestParameter only allows string values
-        $_POST['pui_required'] = [
+        $puiRequired = [
             'birthdate' => [
                 'day' => '1',
                 'month' => '4',
@@ -115,6 +114,11 @@ final class PaymentTest extends BaseTestCase
             ],
             'phonenumber' => '040111222333'
         ];
+
+        $request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $request->method('getRequestParameter')->willReturn($puiRequired);
+
+        EshopRegistry::set(Request::class, $request);
 
         $loggerMock = $this->getPsrLoggerMock();
         $loggerMock->expects($this->never())

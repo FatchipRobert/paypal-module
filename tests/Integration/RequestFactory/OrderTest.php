@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace OxidSolutionCatalysts\PayPal\Tests\Integration\RequestFactory;
 
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
+use OxidEsales\Eshop\Core\Request;
 use OxidSolutionCatalysts\PayPal\Core\Constants;
 use OxidSolutionCatalysts\PayPal\Core\OrderRequestFactory;
 use OxidSolutionCatalysts\PayPal\Exception\UserPhone as UserPhoneException;
@@ -27,17 +28,19 @@ final class OrderTest extends BaseTestCase
 
     public function testCreatePuiPayPalOrderRequestWithPuiRequiredFields(): void
     {
-        $this->setRequestParameter(
-            'pui_required',
-            [
-                'birthdate' => [
-                    'day' => 1,
-                    'month' => 4,
-                    'year' => 2000
-                ],
-                'phonenumber' => '040 111222333'
-            ]
-        );
+        $puiRequired = [
+            'birthdate' => [
+                'day' => 1,
+                'month' => 4,
+                'year' => 2000
+            ],
+            'phonenumber' => '040 111222333'
+        ];
+
+        $request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $request->method('getRequestParameter')->willReturn($puiRequired);
+
+        EshopRegistry::set(Request::class, $request);
 
         //DE demo user
         $user = oxNew(EshopModelUser::class);

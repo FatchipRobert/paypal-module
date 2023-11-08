@@ -10,13 +10,13 @@ declare(strict_types=1);
 namespace OxidSolutionCatalysts\PayPal\Tests\Integration\Webhook;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 use OxidSolutionCatalysts\PayPal\Core\Webhook\EventDispatcher;
 use OxidSolutionCatalysts\PayPal\Core\Webhook\EventVerifier;
 use OxidSolutionCatalysts\PayPal\Core\RequestReader;
 use OxidSolutionCatalysts\PayPal\Core\Webhook\RequestHandler as WebhookRequestHandler;
 
-final class WebhookRequestHandlerTest extends UnitTestCase
+final class WebhookRequestHandlerTest extends TestCase
 {
     public function testValidCall(): void
     {
